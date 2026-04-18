@@ -46,9 +46,6 @@ const Hero = () => {
           </span>
         </h1>
 
-        <p className="hero-text font-mono text-mantequilla/80 text-xs md:text-sm max-w-2xl leading-relaxed text-left">
-          // El Método del 1% propone que la acumulación de pequeños hábitos sostenidos puede transformar tu salud desde lo cotidiano, complementando los tratamientos convencionales con herramientas científicas y humanas.
-        </p>
 
         <div className="hero-text flex gap-4 mt-4">
           <button className="px-8 py-3 rounded-full bg-terracota text-mantequilla font-jakarta font-bold text-sm tracking-wide transition-transform hover:-translate-y-1 hover:shadow-xl hover:shadow-terracota/20">

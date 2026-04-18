@@ -119,8 +119,10 @@ const Philosophy = () => {
           <h2 className="font-garamond italic font-semibold text-4xl md:text-5xl lg:text-[3.5rem] tracking-tight text-carbon mb-4">
             La Filosofía del 1%
           </h2>
-          <p className="font-mono text-[0.85rem] text-carbon/50 uppercase tracking-widest mt-6">
-            // Pilares del bienestar integral
+
+
+          <p className="font-outfit text-base md:text-lg text-carbon/70 max-w-3xl mx-auto mt-4 leading-relaxed">
+            El Método del 1% propone que la acumulación de pequeños hábitos sostenidos puede transformar tu salud desde lo cotidiano, complementando los tratamientos convencionales con herramientas científicas y humanas.
           </p>
         </div>
 
