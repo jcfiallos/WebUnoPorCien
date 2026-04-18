@@ -141,9 +141,9 @@ const Philosophy = () => {
                 alt={slide.title} 
                 className="w-full h-full object-cover"
               />
-              {/* Gradient overlays to make text readable */}
-              <div className="absolute inset-0 bg-gradient-to-r from-carbon/95 via-carbon/70 to-transparent w-full lg:w-[70%]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-carbon/90 via-carbon/30 to-transparent md:hidden" />
+              {/* Gradient overlays to make text readable without turning it completely dark */}
+              <div className="absolute inset-0 bg-gradient-to-r from-carbon/80 via-carbon/40 to-transparent w-[90%] md:w-[70%]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-carbon/60 via-transparent to-transparent md:hidden" />
             </div>
           ))}
 
