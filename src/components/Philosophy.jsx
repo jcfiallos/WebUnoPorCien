@@ -1,207 +1,199 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Microscope, TrendingUp, ShieldCheck, Users, CalendarCheck, Compass } from 'lucide-react';
-import { cn } from './Navbar'; // re-use utility if you want, or handle via tailwind
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { cn } from './Navbar';
+
+import img1 from '../assets/1.webp';
+import img2 from '../assets/2.webp';
+import img3 from '../assets/3.webp';
+import img4 from '../assets/4.webp';
+import img5 from '../assets/5.png';
+import img6 from '../assets/6.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const principles = [
+const slides = [
   {
     num: "01",
-    title: "CIENCIA, NO FE",
-    tagline: "Cada hábito tiene un porqué medible.",
-    body: "Nada en el Método del 1% es intuición. Cada práctica está respaldada por evidencia clínica actual: oncología, psiconeuroinmunología y nutrición aplicada. Si no hay datos, no entra al método.",
-    Icon: Microscope,
-    iconClass: "icon-rotate"
+    title: "Medicina integrativa",
+    desc: "Complementar —nunca reemplazar— los tratamientos convencionales con terapias de bajo riesgo y evidencia respaldada.",
+    img: img1
   },
   {
     num: "02",
-    title: "MARGINALIDAD COMPUESTA",
-    tagline: "1% diario. 37 veces mejor en un año.",
-    body: "Los grandes cambios no se decretan, se acumulan. El método adopta el principio de mejoras marginales: pequeñas acciones sostenidas generan un efecto compuesto que los sistemas convencionales subestiman.",
-    Icon: TrendingUp,
-    iconClass: "icon-path"
+    title: "Movimiento y energía vital",
+    desc: "Ejercicio adaptado a cada etapa del proceso oncológico para mejorar la respuesta al tratamiento.",
+    img: img2
   },
   {
     num: "03",
-    title: "COMPLEMENTO, NO REEMPLAZO",
-    tagline: "Tu médico lidera. Nosotros acompañamos.",
-    body: "El Método del 1% nunca compite con el tratamiento convencional. Su rol es potenciarlo: mejorar la respuesta inmune, reducir efectos adversos y fortalecer la adherencia terapéutica desde la cotidianidad.",
-    Icon: ShieldCheck,
-    iconClass: "icon-pulse"
+    title: "Alimentación como medicina",
+    desc: "Nutrición estratégica, suplementos, hidratación y microbiota para fortalecer el sistema inmune.",
+    img: img3
   },
   {
     num: "04",
-    title: "NADIE SANA SOLO",
-    tagline: "La comunidad es parte del tratamiento.",
-    body: "La evidencia en psiconeuroinmunología es clara: el aislamiento deteriora la respuesta inmune. La comunidad no es un bonus: es una intervención terapéutica. Aquí, cada miembro aporta y recibe en igual medida.",
-    Icon: Users,
-    iconClass: "icon-nodes"
+    title: "Mente que sana",
+    desc: "Emociones, psiconeuroinmunología y técnicas mente-cuerpo como aliados en la recuperación.",
+    img: img4
   },
   {
     num: "05",
-    title: "CONSISTENCIA SOBRE INTENSIDAD",
-    tagline: "Mejor todos los días que perfecto una vez.",
-    body: "Un hábito de 10 minutos diarios supera a una sesión de 2 horas semanal. El sistema está diseñado para caber en la vida real de un paciente: en tratamiento, en recuperación o en prevención.",
-    Icon: CalendarCheck,
-    iconClass: "icon-checks"
+    title: "Entorno y conexión",
+    desc: "Naturaleza, vínculos sociales, espiritualidad y sentido de vida como pilares del bienestar integral.",
+    img: img5
   },
   {
     num: "06",
-    title: "AUTONOMÍA CON GUÍA EXPERTA",
-    tagline: "Tú tomas las decisiones. El Dr. Vega aporta el mapa.",
-    body: "El método devuelve agencia al paciente. Con el respaldo del Dr. Vega y herramientas de seguimiento personalizado, cada persona construye su propio protocolo dentro de un marco clínicamente validado.",
-    Icon: Compass,
-    iconClass: "icon-compass"
+    title: "Descanso reparador",
+    desc: "El sueño como medicina y cronoterapia para optimizar el ritmo biológico y la regeneración celular.",
+    img: img6
   }
 ];
 
 const Philosophy = () => {
   const sectionRef = useRef(null);
+  const [current, setCurrent] = useState(0);
+  const textRef = useRef(null);
+  const timerRef = useRef(null);
 
+  const goToSlide = (index) => {
+    if (index === current) return;
+    
+    // animate out
+    gsap.to(textRef.current, {
+      opacity: 0,
+      y: 20,
+      duration: 0.3,
+      onComplete: () => {
+        setCurrent(index);
+      }
+    });
+  };
+
+  const nextSlide = () => {
+    goToSlide((current + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    goToSlide((current - 1 + slides.length) % slides.length);
+  };
+
+  // Animate in when current changes
+  useEffect(() => {
+    gsap.fromTo(textRef.current, 
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+    );
+  }, [current]);
+
+  // Autoplay
+  useEffect(() => {
+    timerRef.current = setInterval(nextSlide, 7000);
+    return () => clearInterval(timerRef.current);
+  }, [current]);
+
+  // Initial scroll effect
   useEffect(() => {
     let ctx = gsap.context(() => {
-      // Cards entrance
-      gsap.fromTo(".principle-card", 
-        { y: 40, opacity: 0 },
-        {
+      gsap.fromTo(".carousel-container",
+        { y: 60, opacity: 0 },
+        { 
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 75%",
           },
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power2.out",
+          y: 0, opacity: 1, duration: 1, ease: "power3.out"
         }
       );
-
-      // Numbers independent entrance
-      gsap.fromTo(".principle-num", 
-        { opacity: 0 },
-        {
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-          },
-          opacity: 0.08,
-          duration: 1,
-          stagger: 0.12,
-          delay: 0.3,
-          ease: "power2.out",
-        }
-      );
-      
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
   return (
     <section id="filosofia" ref={sectionRef} className="py-[120px] px-6 lg:px-16 bg-transparent relative z-10">
-      
-      {/* Required specific custom CSS for hover animations and icons */}
-      <style>{`
-        .principle-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 20px 60px rgba(196,97,58,0.12);
-        }
-        .principle-card:hover .card-line {
-          width: 40px;
-        }
-        .principle-card:hover .card-tagline {
-          color: var(--color-salvia);
-        }
-        .principle-card:hover .lucide {
-          animation-duration: 0.5s !important; /* speed up on hover */
-        }
-
-        /* Principle 01 - continuous rotate */
-        .icon-rotate .lucide {
-          animation: spin 20s linear infinite;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* Principle 02 - Ascending path (simulate via clip-path or scale for ease with standard lucide svg) */
-        .icon-path .lucide {
-           /* simplified path draw animation representation */
-           animation: pulse-scale 3s infinite alternate;
-        }
-        @keyframes pulse-scale { 0% { transform: scale(0.9); } 100% { transform: scale(1.1); } }
-
-        /* Principle 03 - Pulse heartbeat */
-        .icon-pulse .lucide {
-          animation: heartbeat 2.5s ease-in-out infinite;
-        }
-        @keyframes heartbeat { 0%, 100% { opacity: 0.6; transform: scale(0.95); } 50% { opacity: 1; transform: scale(1.05); } }
-
-        /* Principle 04 - Nodes/Shake */
-        .icon-nodes .lucide {
-          animation: float 4s ease-in-out infinite;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-
-        /* Principle 05 - Checkmarks */
-        .icon-checks .lucide {
-          animation: draw-check 3s ease-in-out infinite;
-        }
-        @keyframes draw-check { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
-
-        /* Principle 06 - Compass */
-        .icon-compass .lucide {
-          animation: compass-swing 4s ease-in-out infinite;
-        }
-        @keyframes compass-swing { 0%, 100% { transform: rotate(-15deg); } 50% { transform: rotate(15deg); } }
-      `}</style>
-
       <div className="max-w-7xl mx-auto">
         
-        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="font-garamond italic font-semibold text-4xl md:text-5xl lg:text-[3.5rem] tracking-tight text-carbon mb-4">
-            Los principios que guían cada decisión
+            La Filosofía del 1%
           </h2>
           <p className="font-mono text-[0.85rem] text-carbon/50 uppercase tracking-widest mt-6">
-            // Seis pilares. Un método. Resultados medibles.
+            // Pilares del bienestar integral
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {principles.map((p, i) => (
+        {/* Carousel Container */}
+        <div className="carousel-container relative w-full h-[600px] md:h-[500px] rounded-[2rem] overflow-hidden group shadow-2xl shadow-carbon/10 bg-carbon">
+          
+          {/* Images */}
+          {slides.map((slide, index) => (
             <div 
-              key={i} 
-              className="principle-card group relative bg-white/70 backdrop-blur-sm border border-salvia/15 rounded-[2rem] p-8 md:p-10 transition-all duration-300 ease-out overflow-hidden"
+              key={index} 
+              className={cn(
+                "absolute inset-0 transition-opacity duration-1000 ease-in-out",
+                current === index ? "opacity-100 z-10" : "opacity-0 z-0"
+              )}
             >
-              {/* Decorative Number */}
-              <div className="principle-num absolute top-4 right-6 font-garamond italic text-7xl md:text-[6rem] text-salvia opacity-[0.08] leading-none pointer-events-none select-none">
-                {p.num}
-              </div>
-
-              {/* Icon */}
-              <div className={cn("text-salvia mb-6", p.iconClass)}>
-                <p.Icon size={28} strokeWidth={1.5} />
-              </div>
-
-              <div className="relative z-10">
-                <h3 className="font-jakarta font-bold text-base text-carbon tracking-wide uppercase mb-2">
-                  {p.title}
-                </h3>
-                <p className="card-tagline font-garamond italic text-[1.1rem] md:text-xl text-terracota transition-colors duration-300 mb-4">
-                  {p.tagline}
-                </p>
-                <p className="font-outfit text-[0.85rem] text-carbon/70 leading-relaxed max-w-[85%]">
-                  {p.body}
-                </p>
-              </div>
-
-              {/* Decorative Line */}
-              <div className="absolute bottom-6 left-8 h-[2px] w-0 bg-terracota card-line transition-all duration-300 pointer-events-none" />
+              <img 
+                src={slide.img} 
+                alt={slide.title} 
+                className="w-full h-full object-cover"
+              />
+              {/* Gradient overlays to make text readable */}
+              <div className="absolute inset-0 bg-gradient-to-r from-carbon/95 via-carbon/70 to-transparent w-full lg:w-[70%]" />
+              <div className="absolute inset-0 bg-gradient-to-t from-carbon/90 via-carbon/30 to-transparent md:hidden" />
             </div>
           ))}
+
+          {/* Content overlay */}
+          <div className="absolute inset-0 z-20 flex flex-col justify-center px-8 md:px-16 lg:w-[60%]">
+            <div ref={textRef}>
+              <div className="font-garamond italic text-[4rem] md:text-[6rem] text-mantequilla/20 leading-none mb-4 select-none">
+                {slides[current].num}
+              </div>
+              <h3 className="font-jakarta font-bold text-3xl md:text-4xl text-mantequilla mb-4 tracking-tight">
+                {slides[current].title}
+              </h3>
+              <p className="font-outfit text-[1.05rem] md:text-lg text-mantequilla/80 leading-relaxed max-w-lg">
+                {slides[current].desc}
+              </p>
+            </div>
+          </div>
+
+          {/* Controls */}
+          <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 z-30 flex gap-3">
+            <button 
+              onClick={prevSlide}
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-carbon/50 text-mantequilla backdrop-blur-md border border-mantequilla/10 hover:bg-terracota transition-colors"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button 
+              onClick={nextSlide}
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-carbon/50 text-mantequilla backdrop-blur-md border border-mantequilla/10 hover:bg-terracota transition-colors"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+
+          {/* Indicators */}
+          <div className="absolute bottom-8 left-8 md:bottom-12 md:left-16 z-30 flex gap-2">
+            {slides.map((_, idx) => (
+              <button 
+                key={idx} 
+                onClick={() => goToSlide(idx)}
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-300",
+                  current === idx ? "w-8 bg-terracota" : "w-2 bg-mantequilla/30 hover:bg-mantequilla/60"
+                )}
+              />
+            ))}
+          </div>
+
         </div>
+
       </div>
     </section>
   );
