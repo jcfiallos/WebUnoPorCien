@@ -60,7 +60,7 @@ const Libro = () => {
         {/* Centered Header (matching Benefits style) */}
         <div className="text-center mb-20">
           <h2 className="font-garamond italic font-semibold text-4xl md:text-5xl lg:text-[4rem] tracking-tight text-mantequilla mb-6">
-            El Método del 1%
+            El Libro
           </h2>
           <div className="w-24 h-[1px] bg-mantequilla/30 mx-auto mb-8" />
           <p className="font-mono text-[0.8rem] text-mantequilla/60 uppercase tracking-[0.2em]">
@@ -76,13 +76,19 @@ const Libro = () => {
               El libro desglosa la complejidad clínica en <span className="font-bold underline decoration-white/30 underline-offset-8">herramientas cotidianas</span> a través de las siguientes secciones:
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 mb-12">
+            <div className="flex flex-wrap gap-3 mb-12">
               {bookSections.map((section, idx) => (
-                <div key={idx} className="flex items-center gap-3 group">
-                  <div className="w-2 h-2 rounded-full bg-white group-hover:scale-150 transition-all duration-300" />
-                  <span className="font-jakarta text-base text-mantequilla/70 group-hover:text-white transition-colors capitalize">{section}</span>
+                <div key={idx} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 group cursor-default">
+                  <span className="font-jakarta text-[0.8rem] text-mantequilla/70 group-hover:text-mantequilla transition-colors">{section}</span>
                 </div>
               ))}
+            </div>
+
+            <div className="flex justify-start mb-12">
+              <button className="px-8 py-4 bg-mantequilla text-terracota font-jakarta font-bold text-base rounded-full shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white active:scale-95 flex items-center gap-2 group">
+                <BookOpen size={18} className="group-hover:rotate-12 transition-transform" />
+                Compra el libro
+              </button>
             </div>
 
             <div className="p-8 bg-black/10 rounded-[2.5rem] border border-white/10 backdrop-blur-md">
