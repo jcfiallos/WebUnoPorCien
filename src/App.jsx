@@ -5,7 +5,7 @@ import Hero from './components/Hero';
 import Philosophy from './components/Philosophy';
 import Features from './components/Features';
 import Manifesto from './components/Manifesto';
-import Archive from './components/Archive';
+import Testimonials from './components/Testimonials';
 import JoinSection from './components/JoinSection';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
@@ -21,7 +21,7 @@ function App() {
         <Philosophy />
         <Features />
         <Manifesto />
-        <Archive />
+        <Testimonials />
         <JoinSection />
       </main>
       
