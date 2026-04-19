@@ -12,60 +12,79 @@ function cn(...inputs) {
 
 // ----------------------
 // FEATURE 1: BARAJA DIAGNÓSTICA
-// 3 cards that rotate their depth/position every 3 seconds
+// 4 cards that rotate their vertical position every 3 seconds
 // ----------------------
+const steps = [
+  {
+    num: "01",
+    title: "Evaluar tu estado actual",
+    desc: "Conocer tu diagnóstico, emociones y hábitos de vida como punto de partida."
+  },
+  {
+    num: "02",
+    title: "Elegir pequeñas mejoras",
+    desc: "Identificar áreas de acción: nutrición, movimiento, sueño, mente y entorno."
+  },
+  {
+    num: "03",
+    title: "Integrar y sostener",
+    desc: "Aplicar cada cambio con constancia, sin reemplazar los tratamientos médicos."
+  },
+  {
+    num: "04",
+    title: "Observar la transformación",
+    desc: "Con el tiempo, los pequeños cambios se acumulan en una diferencia real y medible."
+  }
+];
+
 const DeckDiagnostic = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const labels = ["Plan de Tratamiento", "Estadísticas Vitales", "Monitoreo Inmunitario"];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % 3);
+      setActiveIndex((prev) => (prev + 1) % steps.length);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="relative w-full h-[250px] flex items-center justify-center perspective-[1000px]">
-      {[0, 1, 2].map((i) => {
-        // Calculate relative position (-1, 0, 1)
-        const diff = (i - activeIndex + 3) % 3;
-        
-        let transformStr = "";
+    <div className="relative w-full h-[320px] flex items-center justify-center" style={{ perspective: '1000px' }}>
+      {steps.map((step, i) => {
+        const diff = (i - activeIndex + steps.length) % steps.length;
+
+        let translateY = 0;
+        let scale = 1;
         let zIndex = 10;
         let opacity = 1;
 
         if (diff === 0) {
-          // Front
-          transformStr = "translateY(0px) scale(1) translateZ(0px)";
-          zIndex = 30;
+          translateY = 0; scale = 1; zIndex = 40; opacity = 1;
         } else if (diff === 1) {
-          // Middle
-          transformStr = "translateY(-15px) scale(0.95) translateZ(-50px)";
-          zIndex = 20;
-          opacity = 0.8;
+          translateY = -16; scale = 0.96; zIndex = 30; opacity = 0.75;
+        } else if (diff === 2) {
+          translateY = -32; scale = 0.92; zIndex = 20; opacity = 0.5;
         } else {
-          // Back
-          transformStr = "translateY(-30px) scale(0.9) translateZ(-100px)";
-          zIndex = 10;
-          opacity = 0.5;
+          translateY = -48; scale = 0.88; zIndex = 10; opacity = 0.3;
         }
 
         return (
-          <div 
+          <div
             key={i}
-            className="absolute top-10 left-0 right-0 mx-auto w-3/4 max-w-sm h-32 bg-white rounded-2xl border border-salvia/20 shadow-[0_10px_40px_rgba(0,0,0,0.05)] p-5 flex flex-col justify-between transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-            style={{ transform: transformStr, zIndex, opacity }}
+            className="absolute left-0 right-0 mx-auto w-[85%] max-w-sm h-48 bg-white rounded-2xl border border-salvia/20 shadow-[0_10px_40px_rgba(0,0,0,0.06)] p-6 flex flex-col justify-center transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+            style={{
+              transform: `translateY(${translateY}px) scale(${scale})`,
+              zIndex,
+              opacity,
+              top: '60px'
+            }}
           >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-mantequilla border border-salvia/30 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-terracota"></div>
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-full bg-terracota/10 border border-terracota/20 flex items-center justify-center shrink-0">
+                <span className="font-jakarta font-bold text-terracota text-sm">{step.num}</span>
               </div>
-              <span className="font-jakarta font-semibold text-carbon text-sm">{labels[i]}</span>
-            </div>
-            <div className="w-full h-8 bg-mantequilla/50 rounded flex items-center px-3">
-              <div className="h-1 w-2/3 bg-salvia/20 rounded-full overflow-hidden">
-                <div className="h-full bg-salvia w-1/2"></div>
+              <div>
+                <h5 className="font-jakarta font-bold text-carbon text-lg mb-1 leading-tight">{step.title}</h5>
+                <p className="font-outfit text-base text-carbon/60 leading-relaxed">{step.desc}</p>
               </div>
             </div>
           </div>
@@ -116,7 +135,7 @@ const Telemetry = () => {
   }, [text, isDeleting, phraseIdx, phrases]);
 
   return (
-    <div className="w-full h-[250px] bg-carbon rounded-[2rem] p-8 flex flex-col justify-between relative overflow-hidden border border-white/10 shadow-2xl">
+    <div className="w-full h-[320px] bg-carbon rounded-[2rem] p-8 flex flex-col justify-between relative overflow-hidden border border-white/10 shadow-2xl">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-2 h-2 rounded-full bg-terracota animate-pulse" />
         <span className="text-[0.65rem] font-mono text-mantequilla/60 uppercase tracking-widest">En Vivo</span>
@@ -179,7 +198,7 @@ const AgendaProtocol = () => {
   const days = ["L", "M", "X", "J", "V", "S", "D"];
 
   return (
-    <div ref={containerRef} className="w-full h-[250px] bg-white rounded-[2rem] border border-salvia/15 p-8 relative overflow-hidden flex flex-col justify-between">
+    <div ref={containerRef} className="w-full h-[320px] bg-white rounded-[2rem] border border-salvia/15 p-8 relative overflow-hidden flex flex-col justify-between">
       <div>
         <div className="font-jakarta font-bold text-sm text-carbon mb-4">Agenda del Paciente</div>
         <div className="grid grid-cols-7 gap-2">
@@ -223,35 +242,35 @@ const Features = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-16">
           <h2 className="font-garamond italic font-semibold text-4xl md:text-5xl lg:text-[3.5rem] tracking-tight text-carbon mb-4">
-            Instrumentos Digitales
+            Cómo implementarlo
           </h2>
           <p className="font-mono text-[0.85rem] text-carbon/50 uppercase tracking-widest mt-6">
-            // Software adaptado para tu recuperación
+            // Paso a paso hacia tu transformación
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 text-center">
             <DeckDiagnostic />
-            <div className="px-2">
-              <h4 className="font-jakarta font-bold text-salvia mb-1">Visión Integral</h4>
-              <p className="font-outfit text-sm text-carbon/70">Tus datos médicos y hábitos diarios presentados sin fricción.</p>
+            <div className="px-4">
+              <h4 className="font-jakarta font-bold text-salvia mb-1">Ciclo de mejora</h4>
+              <p className="font-outfit text-sm text-carbon/70">Cuatro pasos claros para integrar el método en tu vida diaria.</p>
             </div>
           </div>
           
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 text-center">
             <Telemetry />
-            <div className="px-2">
-              <h4 className="font-jakarta font-bold text-salvia mb-1">Telemetría en Vivo</h4>
-              <p className="font-outfit text-sm text-carbon/70">Ajustes proactivos según tu evolución semanal.</p>
+            <div className="px-4">
+              <h4 className="font-jakarta font-bold text-salvia mb-1">Planifica, Realiza, Evalùa y Corrige</h4>
+              <p className="font-outfit text-sm text-carbon/70">Planificación inteligente para que el método se adapte a tu ritmo.</p>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 text-center">
             <AgendaProtocol />
-             <div className="px-2">
-              <h4 className="font-jakarta font-bold text-salvia mb-1">Protocolo Reactivo</h4>
-              <p className="font-outfit text-sm text-carbon/70">Programación automática para no gastar energía en decidir.</p>
+            <div className="px-4">
+              <h4 className="font-jakarta font-bold text-salvia mb-1">Organiza tu semana</h4>
+              <p className="font-outfit text-sm text-carbon/70">Programación estratégica de tus hábitos para eliminar la fatiga de decisión.</p>
             </div>
           </div>
         </div>
