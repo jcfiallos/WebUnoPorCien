@@ -73,18 +73,21 @@ const JoinSection = () => {
   }, []);
 
   return (
-    <section id="comunidad" ref={sectionRef} className="py-[120px] px-6 lg:px-16 bg-transparent relative z-10">
-      <div className="max-w-7xl mx-auto">
-
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-garamond italic font-semibold text-4xl md:text-5xl lg:text-[3.5rem] tracking-tight text-carbon mb-4">
-            Únete a la comunidad
-          </h2>
-          <p className="font-outfit text-base md:text-lg text-carbon/70 max-w-3xl mx-auto mt-4 leading-relaxed">
-            Da el primer paso hacia una vida con más herramientas, más acompañamiento y más ciencia a tu favor.
-          </p>
-        </div>
+    <section id="comunidad" ref={sectionRef} className="py-[120px] px-6 lg:px-16 bg-carbon relative z-10 overflow-hidden">
+      {/* Decorative effect */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-terracota/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+ 
+         {/* Header */}
+         <div className="text-center mb-16">
+           <h2 className="font-garamond italic font-semibold text-4xl md:text-5xl lg:text-[4rem] tracking-tight text-mantequilla mb-4">
+             ¡Únete!
+           </h2>
+           <p className="font-outfit text-base md:text-lg text-mantequilla/70 max-w-3xl mx-auto mt-4 leading-relaxed">
+             Da el primer paso hacia una vida con más herramientas, más acompañamiento y más ciencia a tu favor.
+           </p>
+         </div>
 
         {/* Two-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">

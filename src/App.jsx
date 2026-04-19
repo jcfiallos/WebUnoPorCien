@@ -3,8 +3,9 @@ import NoiseOverlay from './components/NoiseOverlay';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Philosophy from './components/Philosophy';
+import Benefits from './components/Benefits';
 import Features from './components/Features';
-import Manifesto from './components/Manifesto';
+import Libro from './components/Libro';
 import Testimonials from './components/Testimonials';
 import JoinSection from './components/JoinSection';
 import Footer from './components/Footer';
@@ -19,8 +20,9 @@ function App() {
       <main>
         <Hero />
         <Philosophy />
+        <Benefits />
         <Features />
-        <Manifesto />
+        <Libro />
         <Testimonials />
         <JoinSection />
       </main>

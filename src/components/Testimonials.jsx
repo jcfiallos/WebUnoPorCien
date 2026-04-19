@@ -52,7 +52,7 @@ const Testimonials = () => {
   return (
     <section id="testimonios" ref={sectionRef} className="py-[120px] px-6 lg:px-16 bg-transparent relative z-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        
+
         <div className="text-center mb-16">
           <h2 className="font-garamond italic font-semibold text-4xl md:text-5xl lg:text-[3.5rem] tracking-tight text-carbon mb-4">
             Lo que dice nuestra comunidad
@@ -64,8 +64,8 @@ const Testimonials = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="testimonial-card bg-white rounded-[2rem] p-8 md:p-10 border border-salvia/15 shadow-xl shadow-carbon/5 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-carbon/10"
             >
               <div>
