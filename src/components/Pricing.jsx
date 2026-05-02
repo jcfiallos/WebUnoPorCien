@@ -10,7 +10,8 @@ const Pricing = () => {
       period: "una vez",
       desc: "Fundamentos teóricos y tácticos del Método del 1%.",
       features: ["Libro físico o digital", "Guía rápida de inicio", "Acceso al foro comunitario"],
-      highlight: false
+      highlight: false,
+      href: "https://www.amazon.com/dp/B0GYVH6WXW"
     },
     {
       name: "El Ecosistema",
@@ -23,7 +24,8 @@ const Pricing = () => {
         "Masterclass mensual con Dr. Vega",
         "Comunidad premium de seguimiento"
       ],
-      highlight: true
+      highlight: true,
+      href: "#"
     },
     {
       name: "Consultoría Privada",
@@ -36,7 +38,8 @@ const Pricing = () => {
         "Plan Nutricional adaptativo",
         "Soporte prioritario 24/7"
       ],
-      highlight: false
+      highlight: false,
+      href: "#"
     }
   ];
 
@@ -84,16 +87,19 @@ const Pricing = () => {
                 ))}
               </ul>
 
-              <button 
+              <a 
+                href={plan.href}
+                target={plan.href !== "#" ? "_blank" : undefined}
+                rel={plan.href !== "#" ? "noopener noreferrer" : undefined}
                 className={cn(
-                  "w-full py-4 rounded-full font-jakarta font-semibold tracking-wide transition-all",
+                  "w-full py-4 rounded-full font-jakarta font-semibold tracking-wide transition-all flex items-center justify-center",
                   plan.highlight
                     ? "bg-terracota text-mantequilla hover:bg-terracota/90 hover:shadow-lg hover:shadow-terracota/20"
                     : "bg-mantequilla text-carbon hover:bg-carbon hover:text-mantequilla border border-carbon/10"
                 )}
               >
                 Elegir Plan
-              </button>
+              </a>
             </div>
           ))}
         </div>

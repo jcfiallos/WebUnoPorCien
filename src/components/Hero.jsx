@@ -51,9 +51,14 @@ const Hero = () => {
           <button className="px-8 py-3 rounded-full bg-terracota text-mantequilla font-jakarta font-bold text-sm tracking-wide transition-transform hover:-translate-y-1 hover:shadow-xl hover:shadow-terracota/20">
             Únete
           </button>
-          <button className="px-8 py-3 rounded-full bg-mantequilla/10 backdrop-blur-sm border border-mantequilla/20 text-mantequilla font-jakarta font-bold text-sm tracking-wide transition-all hover:bg-mantequilla/20">
+          <a 
+            href="https://www.amazon.com/dp/B0GYVH6WXW"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 rounded-full bg-mantequilla/10 backdrop-blur-sm border border-mantequilla/20 text-mantequilla font-jakarta font-bold text-sm tracking-wide transition-all hover:bg-mantequilla/20 flex items-center justify-center"
+          >
             Compra el Libro
-          </button>
+          </a>
         </div>
 
       </div>

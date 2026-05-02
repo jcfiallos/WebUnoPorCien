@@ -85,10 +85,15 @@ const Libro = () => {
             </div>
 
             <div className="flex justify-start mb-12">
-              <button className="px-8 py-4 bg-mantequilla text-terracota font-jakarta font-bold text-base rounded-full shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white active:scale-95 flex items-center gap-2 group">
+              <a 
+                href="https://www.amazon.com/dp/B0GYVH6WXW"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-mantequilla text-terracota font-jakarta font-bold text-base rounded-full shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white active:scale-95 flex items-center gap-2 group"
+              >
                 <BookOpen size={18} className="group-hover:rotate-12 transition-transform" />
                 Compra el libro
-              </button>
+              </a>
             </div>
 
             <div className="p-8 bg-black/10 rounded-[2.5rem] border border-white/10 backdrop-blur-md">
