@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import { Instagram } from 'lucide-react';
 import heroBg from '../assets/hero.png';
 
 const Hero = () => {
@@ -47,7 +48,7 @@ const Hero = () => {
         </h1>
 
 
-        <div className="hero-text flex gap-4 mt-4">
+        <div className="hero-text flex gap-4 mt-4 items-center">
           <button className="px-8 py-3 rounded-full bg-terracota text-mantequilla font-jakarta font-bold text-sm tracking-wide transition-transform hover:-translate-y-1 hover:shadow-xl hover:shadow-terracota/20">
             Únete
           </button>
@@ -58,6 +59,13 @@ const Hero = () => {
             className="px-8 py-3 rounded-full bg-mantequilla/10 backdrop-blur-sm border border-mantequilla/20 text-mantequilla font-jakarta font-bold text-sm tracking-wide transition-all hover:bg-mantequilla/20 flex items-center justify-center"
           >
             Compra el Libro
+          </a>
+          <a 
+            href="#" 
+            className="p-3 rounded-full bg-mantequilla/10 backdrop-blur-sm border border-mantequilla/20 text-mantequilla transition-all hover:bg-mantequilla/20 flex items-center justify-center hover:-translate-y-1"
+            aria-label="Instagram"
+          >
+            <Instagram size={20} />
           </a>
         </div>
 
